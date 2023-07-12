@@ -7,7 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-    public function user(){
+    protected $guarded = [];
+
+    public function profileImage()
+    {
+        $imagePath = ($this->image) ? $this->image : 'profile/OTIcQ6V0mB0zqAr1CGj9HcsEvJvsCK2XDsKFiHRf.webp';
+        return '/storage/' . $imagePath;
+    }
+
+    public function followers(){
+        return $this->belongsToMany(User::class);
+    }
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }
